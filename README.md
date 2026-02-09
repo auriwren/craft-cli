@@ -17,6 +17,7 @@ Set environment variables or create `~/.openclaw/credentials/craft.env`:
 ```env
 CRAFT_API_BASE=https://connect.craft.do/links/YOUR_LINK/api/v1
 CRAFT_API_KEY=pdk_your_api_key_here
+CRAFT_DEFAULT_FOLDER=your_default_folder_id  # optional
 ```
 
 ## Usage
@@ -28,7 +29,7 @@ CRAFT_API_KEY=pdk_your_api_key_here
 craft-cli doc list
 
 # List documents in a folder
-craft-cli doc list --folder 3ee338c6-fc27-cbd6-e324-584c60ddfc86
+craft-cli doc list --folder YOUR_FOLDER_ID
 
 # List documents by location
 craft-cli doc list --location unsorted

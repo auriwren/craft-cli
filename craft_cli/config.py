@@ -6,7 +6,17 @@ from pathlib import Path
 from dotenv import dotenv_values
 
 ENV_FILE = Path.home() / ".openclaw" / "credentials" / "craft.env"
-DEFAULT_FOLDER_ID = "3ee338c6-fc27-cbd6-e324-584c60ddfc86"
+
+
+def get_default_folder_id() -> str | None:
+    """Get default folder ID from env var or credentials file."""
+    folder_id = os.environ.get("CRAFT_DEFAULT_FOLDER")
+    if folder_id:
+        return folder_id
+    if ENV_FILE.exists():
+        cfg = dotenv_values(ENV_FILE)
+        return cfg.get("CRAFT_DEFAULT_FOLDER")
+    return None
 
 
 def load_config() -> dict[str, str]:

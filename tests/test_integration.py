@@ -4,10 +4,11 @@ Run with: pytest tests/test_integration.py -v
 These create real documents and clean up after themselves.
 """
 
+import os
 import time
 import pytest
 
-AURI_FOLDER = "3ee338c6-fc27-cbd6-e324-584c60ddfc86"
+AURI_FOLDER = os.environ.get("CRAFT_DEFAULT_FOLDER", "")
 
 
 class TestDocumentLifecycle:

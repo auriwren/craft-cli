@@ -9,7 +9,7 @@ from pathlib import Path
 import click
 
 from .client import CraftClient
-from .config import DEFAULT_FOLDER_ID
+from .config import get_default_folder_id
 from .utils import (block_tree, console, doc_table, error, folder_tree,
                     output_json, task_table)
 
@@ -56,13 +56,15 @@ def doc_list(ctx, folder_id, location, metadata):
 
 @doc_group.command("create")
 @click.argument("title")
-@click.option("--folder", "folder_id", default=DEFAULT_FOLDER_ID,
-              help="Folder ID (default: Auri folder)")
+@click.option("--folder", "folder_id", default=None,
+              help="Folder ID (default: CRAFT_DEFAULT_FOLDER env var)")
 @click.option("--content", help="Markdown content (string or @filepath)")
 @click.pass_context
 def doc_create(ctx, title, folder_id, content):
     """Create a document and optionally populate with content."""
     client = get_client()
+    if folder_id is None:
+        folder_id = get_default_folder_id()
     result = client.create_document(title, folder_id=folder_id)
     items = result.get("items", [])
     if not items:
